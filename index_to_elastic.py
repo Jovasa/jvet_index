@@ -37,7 +37,7 @@ def index_one_zip_file(file_path: Path):
         ".pdf": 0,
         ".pptx": 0,
     }
-    files = [x for x in base_out.iterdir() if x.is_file()]
+    files = [x for x in base_out.rglob("*") if x.is_file()]
     for file in files:
         try:
             if file.suffix == ".doc":
@@ -87,5 +87,6 @@ def index_one_zip_file(file_path: Path):
 
 
 if __name__ == '__main__':
-    for file in Path("contents").iterdir():
-        index_one_zip_file(file)
+    all_zip_files = [x for x in Path("contents").iterdir() if x.is_file()]
+    for fip_file in all_zip_files:
+        index_one_zip_file(fip_file)
